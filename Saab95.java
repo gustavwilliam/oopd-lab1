@@ -29,7 +29,7 @@ public class Saab95 extends Car {
     }
 
     @Override
-    protected void decrementSpeed(double amount){
+    protected void decreaseSpeed(double amount){
         currentSpeed = getCurrentSpeed() - speedFactor() * amount;
     }
 }
