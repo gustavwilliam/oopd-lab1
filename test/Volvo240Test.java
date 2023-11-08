@@ -44,7 +44,7 @@ public class Volvo240Test {
     @Test
     public void testDecreaseSpeed() {
         double initialSpeed = 30;
-        volvo240.currentSpeed = initialSpeed;
+        volvo240.setCurrentSpeed(initialSpeed);
         double speedFactor = volvo240.getEnginePower() * 0.01 * 1.25;
         double amount = 10;
         volvo240.decreaseSpeed(amount);

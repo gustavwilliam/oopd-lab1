@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 public abstract class Car implements Movable {
     private final int nrDoors; // Number of doors on the car
     private final double enginePower; // Engine power of the car
-    protected double currentSpeed; // The current speed of the car
+    private double currentSpeed; // The current speed of the car
     private Color color; // Color of the car
     public String modelName; // The car model name
     private Direction direction; // The car's direction
