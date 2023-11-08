@@ -32,8 +32,21 @@ public abstract class Car implements Movable {
         return currentSpeed;
     }
 
+    public void setCurrentSpeed(double newSpeed) {
+        if (newSpeed < 0 || newSpeed > enginePower) throw new IllegalArgumentException("New currentSpeed must be between 0 and engine power");
+        currentSpeed = newSpeed;
+    }
+
     public Color getColor(){
         return color;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public Point2D.Double getPosition() {
+        return position;
     }
 
     public void setColor(Color clr){
@@ -53,10 +66,12 @@ public abstract class Car implements Movable {
     protected abstract void decreaseSpeed(double amount);
 
     public void gas(double amount){
+        if (amount < 0 || amount > 1) throw new IllegalArgumentException("Gas amount must be between 0 and 1");
         incrementSpeed(amount);
     }
 
     public void brake(double amount){
+        if (amount < 0 || amount > 1) throw new IllegalArgumentException("Brake amount must be between 0 and 1");
         decreaseSpeed(amount);
     }
 

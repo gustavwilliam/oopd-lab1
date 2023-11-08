@@ -25,11 +25,13 @@ public class Saab95 extends Car {
 
     @Override
     protected void incrementSpeed(double amount){
-        currentSpeed = getCurrentSpeed() + speedFactor() * amount;
+        double newSpeed = getCurrentSpeed() + speedFactor() * amount;
+        setCurrentSpeed(Math.min(getEnginePower(), newSpeed));
     }
 
     @Override
     protected void decreaseSpeed(double amount){
-        currentSpeed = getCurrentSpeed() - speedFactor() * amount;
+        double newSpeed = getCurrentSpeed() - speedFactor() * amount;
+        setCurrentSpeed(Math.max(0, newSpeed));
     }
 }
