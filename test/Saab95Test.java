@@ -50,4 +50,26 @@ public class Saab95Test {
 
 
     }
+
+    @Test
+    public void testBreakSpeedDecrease() {
+        double oldSpeed = saab95.getCurrentSpeed();
+        saab95.brake(1);
+        assertTrue(saab95.getCurrentSpeed() > oldSpeed);
+    }
+
+    @Test
+    public void testMoveDirection(){
+        for (int i = 0; i < 4; i++) {
+            saab95.move();
+            saab95.turnLeft();
+
+        }
+        for (int i = 0; i < 4; i++) {
+            saab95.move();
+            saab95.turnRight();
+        }
+    }
 }
+
+
