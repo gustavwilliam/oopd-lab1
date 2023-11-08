@@ -44,11 +44,11 @@ public class Saab95Test {
 
     }
 
-    public void testSpeedIncrease(){
-        ogSpeed = saab95.getCurrentSpeed();
-        newSpeed =
-
-
+    @Test
+    public void testGasSpeedIncrease() {
+        double oldSpeed = saab95.getCurrentSpeed();
+        saab95.gas(1);
+        assertTrue(saab95.getCurrentSpeed() > oldSpeed);
     }
 
     @Test
