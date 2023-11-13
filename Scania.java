@@ -1,6 +1,8 @@
 import java.awt.*;
 
 public class Scania extends PlatformVehicle {
+
+    // TODO: Add at least one test for this class
     private float platformAngle;
 
     public Scania() {
