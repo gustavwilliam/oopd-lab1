@@ -3,7 +3,7 @@ import java.awt.*;
 public class Scania extends PlatformVehicle {
 
     // TODO: Add at least one test for this class
-    private float platformAngle;
+    private double platformAngle;
 
     public Scania() {
         super(2, 100, Color.blue, "Scania");
@@ -14,11 +14,11 @@ public class Scania extends PlatformVehicle {
         return getEnginePower() * 0.01;
     }
 
-    public float getPlatformAngle() {
+    public double getPlatformAngle() {
         return platformAngle;
     }
 
-    public void setPlatformAngle(float platformAngle) {
+    public void setPlatformAngle(double platformAngle) {
         if (platformAngle < 0 || platformAngle > 70)
             throw new IllegalArgumentException("platformAngle can't be more than 70 or less than 0");
         if (getCurrentSpeed() != 0) {

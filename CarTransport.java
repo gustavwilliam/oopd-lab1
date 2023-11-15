@@ -3,8 +3,11 @@ import java.awt.*;
 public class CarTransport extends PlatformVehicle {
 
     private boolean platformIsClosed;
+    //private Car cars[];
+
     public CarTransport(int nrDoors, double enginePower, Color color, String modelName) {
         super(nrDoors, enginePower, color, modelName);
+
     }
 
     @Override
@@ -28,6 +31,7 @@ public class CarTransport extends PlatformVehicle {
     private double speedFactor() {
         return getEnginePower() * 0.01;
     }
+
 
 
 }
