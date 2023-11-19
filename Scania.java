@@ -10,10 +10,6 @@ public class Scania extends PlatformVehicle {
         this.platformAngle = 0;
     }
 
-    private double speedFactor() {
-        return getEnginePower() * 0.01;
-    }
-
     public double getPlatformAngle() {
         return platformAngle;
     }
@@ -25,19 +21,6 @@ public class Scania extends PlatformVehicle {
             throw new IllegalArgumentException("platformAngle can't move during car movement");
         }
         this.platformAngle = platformAngle;
-    }
-
-    @Override
-    protected void incrementSpeed(double amount) {
-        if (platformClosed()) {
-            // Car can only drive if platform is closed
-            setCurrentSpeed(Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower()));
-        }
-    }
-
-    @Override
-    protected void decreaseSpeed(double amount) {
-        setCurrentSpeed(Math.max(getCurrentSpeed() - speedFactor() * amount, 0));
     }
 
     @Override

@@ -1,13 +1,14 @@
 import java.awt.*;
+import java.awt.geom.Point2D;
+import java.util.*;
 
 public class CarTransport extends PlatformVehicle {
 
     private boolean platformIsClosed;
-    //private Car cars[];
+    private Stack<Car> cars = new Stack<Car>();
 
     public CarTransport(int nrDoors, double enginePower, Color color, String modelName) {
         super(nrDoors, enginePower, color, modelName);
-
     }
 
     @Override
@@ -15,24 +16,70 @@ public class CarTransport extends PlatformVehicle {
         return platformIsClosed;
     }
 
-    @Override
-    protected void incrementSpeed(double amount) {
-        if (platformClosed()) {
-            // Car can only drive if platform is closed
-            setCurrentSpeed(Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower()));
+    private void RemoveItemLastAdded(){
+        Car carBeingMoved = cars.peek();
+        cars.pop();
+        //Get position of the truck and then make car change position to behind the truck
+    }
+
+    public double distanceToPlatformBehind() {
+        Direction direction = getDirection();
+        Point2D.Double scaniaPosition = this.getPosition();
+        Point2D.Double carPosition = this.getPosition();
+        double distanceBehind = 0;
+
+        switch (direction) {
+            case LEFT -> {
+                distanceBehind = carPosition.x - scaniaPosition.x;
+            }
+            case FORWARD -> {
+                distanceBehind = scaniaPosition.y - carPosition.y;
+            }
+            case RIGHT -> {
+                distanceBehind = scaniaPosition.x - carPosition.x;
+            }
+            case BACKWARD -> {
+                distanceBehind = carPosition.y - scaniaPosition.y;
+            }
         }
+        return distanceBehind;
     }
 
-    @Override
-    protected void decreaseSpeed(double amount) {
-        setCurrentSpeed(Math.max(getCurrentSpeed() - speedFactor() * amount, 0));
+    public double distanceToPlatformSide() {
+        Direction direction = getDirection();
+        Point2D.Double scaniaPosition = this.getPosition();
+        Point2D.Double carPosition = this.getPosition();
+        double distanceSide = 0;
+
+        switch (direction) {
+            case LEFT, RIGHT -> {
+                distanceSide = carPosition.y - scaniaPosition.y;
+            }
+            case FORWARD, BACKWARD -> {
+                distanceSide = scaniaPosition.x - carPosition.x;
+            }
+        }
+        return distanceSide;
     }
 
-    private double speedFactor() {
-        return getEnginePower() * 0.01;
+    public boolean CanAddCar(Car car) {
+        int conditionsPassed = 0;
+        // satte bara i några random värden
+        if(distanceToPlatformSide() < 0.2 && distanceToPlatformBehind() < 1) {conditionsPassed += 1; }
+
+        if (car.getDirection() == this.getDirection() || car.getDirection() == this.getOpositeDirection()){conditionsPassed += 1; }
+
+        //if (conditionsPassed) {  }
+        return false;
+
     }
 
+    public void AddCar(Car car) {
+        cars.push(car);
+    }
 
+    public void RemoveItem() {
 
+    }
 }
 
