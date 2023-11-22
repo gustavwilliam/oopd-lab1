@@ -1,9 +1,11 @@
 import java.awt.*;
+import java.awt.geom.Point2D;
+import java.util.*;
 
-public class Scania extends PlatformVehicle {
+public class Scania extends PlatformVehicle  {
 
-    // TODO: Add at least one test for this class
     private double platformAngle;
+    private Stack<Car> cars = new Stack<Car>();
 
     public Scania() {
         super(2, 100, Color.blue, "Scania");
@@ -27,4 +29,6 @@ public class Scania extends PlatformVehicle {
     protected boolean platformClosed(){
         return platformAngle == 0;
     }
+
+
 }

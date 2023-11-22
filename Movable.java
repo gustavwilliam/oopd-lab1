@@ -2,4 +2,6 @@ public interface Movable {
     void move();
     void turnLeft();
     void turnRight();
+
+    Direction getOpositeDirection();
 }
