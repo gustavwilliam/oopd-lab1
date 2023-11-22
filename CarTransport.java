@@ -12,7 +12,6 @@ public class CarTransport extends PlatformVehicle {
         super(nrDoors, enginePower, color, modelName);
         this.maxNrCars = maxNrCars;
         this.platformIsClosed = false;
-        
     }
 
     @Override
@@ -20,7 +19,7 @@ public class CarTransport extends PlatformVehicle {
         return platformIsClosed;
     }
 
-    protected void ChangeStatusPlatform() {
+    protected void changeStatusPlatform() {
         platformIsClosed = !platformIsClosed;
     }
 
@@ -74,24 +73,24 @@ public class CarTransport extends PlatformVehicle {
         return distanceSide;
     }
 
-    public int GetNumberCarsLoaded() {
+    public int getNumberCarsLoaded() {
         return cars.size();
     }
 
-    public boolean CanLoadCar(Car car) {
+    public boolean canLoadCar(Car car) {
         int conditionsPassed = 0;
 
         if (distanceToPlatformSide(car) < 0.2 && -0.2 < distanceToPlatformSide(car)) conditionsPassed += 1;
-        if (distanceToPlatformBehind(car) < 3 && distanceToPlatformBehind(car) > 0) conditionsPassed += 1;
+        if (distanceToPlatformSide(car) < 3 && distanceToPlatformBehind(car) > 0) conditionsPassed += 1;
         if (car.getDirection() == this.getDirection() || car.getDirection() == this.getOpositeDirection()) conditionsPassed += 1;
-        if (maxNrCars > GetNumberCarsLoaded() ) conditionsPassed += 1;
+        if (maxNrCars > getNumberCarsLoaded() ) conditionsPassed += 1;
         if (car instanceof CarTransport) conditionsPassed -= 1;
         if (platformClosed()) conditionsPassed -= 1;
 
         return conditionsPassed == 4;
 
     }
-    public void RemoveCarLastAdded(){
+    public void removeCarLastAdded(){
         Car carBeingMoved = cars.peek();
         cars.pop();
 
@@ -103,23 +102,32 @@ public class CarTransport extends PlatformVehicle {
     }
 
     public void LoadCar(Car car){
-        if(CanLoadCar(car)){cars.push(car);}
+        if(canLoadCar(car)){cars.push(car);}
     }
+
     @Override
     public void move() {
-        super.move();
-        for(Car car : cars)
-        {
-            car.setPosition(getPosition());
+        if (platformIsClosed){
+            super.move();
+            for(Car car : cars)
+            {
+                car.setPosition(getPosition());
+            }
+        } else {
+            throw new IllegalArgumentException("The platform is open, close before moving");
         }
     }
 
     @Override
     public void setDirection(Direction newDirection) {
-        super.setDirection(newDirection);
-        for(Car car : cars)
-        {
-            car.setDirection(getDirection());
+        if (platformIsClosed){
+            super.setDirection(newDirection);
+            for(Car car : cars)
+            {
+                car.setDirection(getDirection());
+            }
+        } else {
+            throw new IllegalArgumentException("The platform is open, close before turning");
         }
     }
 }

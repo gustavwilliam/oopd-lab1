@@ -15,7 +15,7 @@ public class CarTransportTest {
 
     @Test
     public void testChangePlatformStatus() {
-        carT.ChangeStatusPlatform();
+        carT.changeStatusPlatform();
         assertTrue(carT.platformClosed());
     }
 
@@ -29,6 +29,19 @@ public class CarTransportTest {
 
         carT.openPlatform();
         carT.LoadCar(volvo240);
-        assertEquals(1, carT.GetNumberCarsLoaded());
+        assertEquals(1, carT.getNumberCarsLoaded());
+    }
+
+    @Test
+    public void testRemoveCarLastAdded(){
+        Volvo240 volvo240 = new Volvo240();
+        volvo240.startEngine();
+        volvo240.turnLeft();
+        volvo240.turnLeft();
+        volvo240.move();
+        carT.LoadCar(volvo240);
+        carT.removeCarLastAdded();
+        carT.openPlatform();
+        assertEquals(0, carT.getNumberCarsLoaded());
     }
 }

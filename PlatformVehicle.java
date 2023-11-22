@@ -7,4 +7,12 @@ public abstract class PlatformVehicle extends Car {
 
     protected abstract boolean platformClosed();
 
+    @Override
+    public void move() {
+        if (platformClosed()){
+            super.move();
+        } else {
+            throw new IllegalArgumentException("The platform is open, close before moving");
+        }
+    }
 }
