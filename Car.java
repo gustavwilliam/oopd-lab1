@@ -8,9 +8,8 @@ public class Car implements Movable {
     private Color color; // Color of the car
     public String modelName; // The car model name
     private Direction direction; // The car's direction
-    private final Point2D.Double position;
-    private double trimFactor = 1;
-    private boolean turboOn = false;
+    private Point2D.Double position;
+    private boolean carInShop = false;
 
     public Car(int nrDoors, double enginePower, Color color, String modelName) {
         this.nrDoors = nrDoors;
@@ -43,13 +42,25 @@ public class Car implements Movable {
         return color;
     }
 
+    public boolean isCarInShop() { return carInShop; }
+
     public Direction getDirection() {
         return direction;
     }
 
-    public Point2D.Double getPosition() {
-        return position;
+    protected void setDirection(Direction newDirection) {
+        direction = newDirection;
     }
+
+    public Point2D.Double getPosition() { return position; }
+
+    public void setPosition(Point2D.Double newPosition) {
+        position = newPosition;
+    }
+
+    public String getModelName() { return this.modelName; }
+
+    public void changeCarInShop() { carInShop = !carInShop; }
 
     public void setColor(Color clr){
         color = clr;
@@ -63,26 +74,8 @@ public class Car implements Movable {
         currentSpeed = 0;
     }
 
-    public void setTurboOn(){
-        turboOn = true;
-    }
-
-    public void setTurboOff(){
-        turboOn = false;
-    }
-
-    public void setTrimFactor(double newTrim) { trimFactor = newTrim; }
-
-    private double speedFactor() {
-        double turbo = 1.3;
-        if (trimFactor != 1 && turboOn)
-            return enginePower * 0.01 * turbo * trimFactor;
-        else if (trimFactor != 1)
-            return enginePower * 0.01 * trimFactor;
-        else if (turboOn)
-            return enginePower * 0.01 * turbo;
-        else
-            return enginePower * 0.01;
+    protected double speedFactor() {
+        return enginePower * 0.01;
     }
 
     private void incrementSpeed(double amount){
@@ -121,20 +114,20 @@ public class Car implements Movable {
     @Override
     public void turnLeft() {
         switch (direction) {
-            case LEFT -> direction = Direction.BACKWARD;
-            case FORWARD -> direction = Direction.LEFT;
-            case RIGHT -> direction = Direction.FORWARD;
-            case BACKWARD -> direction = Direction.RIGHT;
+            case LEFT -> setDirection(Direction.BACKWARD);
+            case FORWARD -> setDirection(Direction.LEFT);
+            case RIGHT -> setDirection(Direction.FORWARD);
+            case BACKWARD -> setDirection(Direction.RIGHT);
         }
     }
 
     @Override
     public void turnRight() {
         switch (direction) {
-            case LEFT -> direction = Direction.FORWARD;
-            case FORWARD -> direction = Direction.RIGHT;
-            case RIGHT -> direction = Direction.BACKWARD;
-            case BACKWARD -> direction = Direction.LEFT;
+            case LEFT -> setDirection(Direction.FORWARD);
+            case FORWARD -> setDirection(Direction.RIGHT);
+            case RIGHT -> setDirection(Direction.BACKWARD);
+            case BACKWARD -> setDirection(Direction.LEFT);
         }
     }
 

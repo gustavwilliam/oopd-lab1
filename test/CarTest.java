@@ -118,37 +118,6 @@ public class CarTest {
         assertEquals(0.2, car.getPosition().getY(), 1e-5);
     }
 
-    @Test
-    public void testTurboIsFaster() {
-        car.startEngine();
-        car.gas(1);
-        double noTurboSpeed = car.getCurrentSpeed();
-        car.stopEngine();
-
-        car.startEngine();
-        car.setTurboOn();
-        car.gas(1);
-        double turboSpeed = car.getCurrentSpeed();
-
-        assertTrue(turboSpeed > noTurboSpeed);
-    }
-
-    @Test
-    public void testTurboOffIsSlower() {
-        car.startEngine();
-        car.setTurboOn();
-        car.gas(1);
-        double turboSpeed = car.getCurrentSpeed();
-        car.stopEngine();
-        car.setTurboOff();
-
-        car.startEngine();
-        car.gas(1);
-        double noTurboSpeed = car.getCurrentSpeed();
-
-        assertTrue(noTurboSpeed < turboSpeed);
-    }
-
     @ParameterizedTest
     @ValueSource(doubles = {-1, -0.1, 1.3, 5})
     public void testGasInputRange(double value) {

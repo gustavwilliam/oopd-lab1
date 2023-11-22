@@ -2,27 +2,33 @@ import org.junit.Test;
 
 import java.awt.*;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class CarTransportTest {
-    private final CarTransport carT = new CarTransport(4, 100, Color.black, "Volvo240", 4);
+    private final CarTransport carT =
+            new CarTransport(4, 100, Color.black, "Volvo240", 4);
 
     @Test
     public void testPlatformInitiallyClosed() {
-        assertEquals(true, carT.platformClosed());
+        assertFalse(carT.platformClosed());
     }
 
     @Test
     public void testChangePlatformStatus() {
         carT.ChangeStatusPlatform();
-        assertEquals(false, carT.platformClosed());
+        assertTrue(carT.platformClosed());
     }
 
     @Test
-    public void testAddCar() {
-        Volvo240 bil1 = new Volvo240();
-        carT.AddCar(bil1);
-        assertEquals(false, carT.platformClosed());
-    }
+    public void testLoadCar() {
+        Volvo240 volvo240 = new Volvo240();
+        volvo240.startEngine();
+        volvo240.turnLeft();
+        volvo240.turnLeft();
+        volvo240.move();
 
+        carT.openPlatform();
+        carT.LoadCar(volvo240);
+        assertEquals(1, carT.GetNumberCarsLoaded());
+    }
 }
