@@ -97,7 +97,7 @@ public class Car implements Movable {
         decrementSpeed(amount);
     }
 
-    private Point2D.Double getNextPosition() {
+    public Point2D.Double getNextPosition() {
         return switch (direction) {
             case LEFT -> new Point2D.Double(position.getX() - getCurrentSpeed(), position.getY());
             case FORWARD -> new Point2D.Double(position.getX(), position.getY() + getCurrentSpeed());
